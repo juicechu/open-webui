@@ -2,14 +2,12 @@ import requests
 import logging
 import ftfy
 import sys
-
 from langchain_community.document_loaders import (
     AzureAIDocumentIntelligenceLoader,
     BSHTMLLoader,
     CSVLoader,
     Docx2txtLoader,
     OutlookMessageLoader,
-    PyPDFLoader,
     TextLoader,
     UnstructuredEPubLoader,
     UnstructuredExcelLoader,
@@ -19,6 +17,7 @@ from langchain_community.document_loaders import (
     UnstructuredXMLLoader,
     YoutubeLoader,
 )
+from langchain_pymupdf4llm import PyMuPDF4LLMLoader
 from langchain_core.documents import Document
 from open_webui.env import SRC_LOG_LEVELS, GLOBAL_LOG_LEVEL
 
@@ -172,7 +171,7 @@ class Loader:
             )
         else:
             if file_ext == "pdf":
-                loader = PyPDFLoader(
+                loader = PyMuPDF4LLMLoader(
                     file_path, extract_images=self.kwargs.get("PDF_EXTRACT_IMAGES")
                 )
             elif file_ext == "csv":
