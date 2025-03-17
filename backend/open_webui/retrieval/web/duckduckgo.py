@@ -21,8 +21,11 @@ def search_duckduckgo(
     Returns:
         list[SearchResult]: A list of search results
     """
+    headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+    }
     # Use the DDGS context manager to create a DDGS object
-    with DDGS() as ddgs:
+    with DDGS(headers=headers) as ddgs:
         # Use the ddgs.text() method to perform the search
         ddgs_gen = ddgs.text(
             query, safesearch="moderate", max_results=count, backend="api"

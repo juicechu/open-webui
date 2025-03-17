@@ -17,6 +17,9 @@ from langchain_community.document_loaders import (
     UnstructuredXMLLoader,
     YoutubeLoader,
 )
+from langchain_community.document_loaders.parsers import (
+    RapidOCRBlobParser,
+)
 from langchain_pymupdf4llm import PyMuPDF4LLMLoader
 from langchain_core.documents import Document
 from open_webui.env import SRC_LOG_LEVELS, GLOBAL_LOG_LEVEL
@@ -172,7 +175,8 @@ class Loader:
         else:
             if file_ext == "pdf":
                 loader = PyMuPDF4LLMLoader(
-                    file_path, extract_images=self.kwargs.get("PDF_EXTRACT_IMAGES")
+                    file_path, extract_images=self.kwargs.get("PDF_EXTRACT_IMAGES"),
+                    images_parser=RapidOCRBlobParser()
                 )
             elif file_ext == "csv":
                 loader = CSVLoader(file_path)
